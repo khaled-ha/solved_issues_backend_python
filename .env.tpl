@@ -1,0 +1,3 @@
+POSTGRES_USER=solved_issues
+POSTGTRES_DB=solved_issues
+POSTGRES_PASSWORD=solved_issues
