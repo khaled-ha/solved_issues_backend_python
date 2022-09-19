@@ -15,8 +15,8 @@ RUN pip install -r /tmp/requirements.txt
 
 FROM python:3.9-slim-bullseye
 
-RUN mkdir /app
-WORKDIR /app
+RUN mkdir /backend
+WORKDIR /backend
 
 # install system dependencies
 RUN apt-get update \
@@ -30,4 +30,4 @@ RUN pip install --upgrade pip
 COPY --from=builder /opt/venv /opt/venv
 ENV  PATH="/opt/venv/bin:$PATH" 
 
-COPY ./app /app
+COPY ./ /backend

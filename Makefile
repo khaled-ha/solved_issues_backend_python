@@ -10,12 +10,12 @@ venv:
 	$(ACTIVATE) && pip install -r requirements.txt
 	$(ACTIVATE) venv/bin/activate && pip install -r requirements_test.txt
 
-set_env:
-	cp martial_art/martial_art/env.tpl martial_art/martial_art/.env
-
 docker_clean:
 	docker stop $(docker ps -aq)
 
 set_migrations:
+	docker-compose down -v
+	docker-compose up -d db
+	alembic revision --autogenerate
 	alembic upgrade head
-	docker-compose up -d --build db
+	docker-compose up -d --build server
