@@ -25,5 +25,6 @@ class EnvVars:
         if not self.POSTGRES_PASSWORD:
             raise EnvVarExceptions('missing environment variable host')
 
-        # if all([self.POSTGRES_USER, self.POSTGTRES_DB, self.POSTGRES_PASSWORD]):
-        #     raise EnvVarExceptions('missing environment variable not correctly set')
+    @property
+    def database_url(self):
+        return f'postgresql://{self.POSTGRES_USER}:{self.POSTGRES_PASSWORD}@db/{self.POSTGTRES_DB}'
