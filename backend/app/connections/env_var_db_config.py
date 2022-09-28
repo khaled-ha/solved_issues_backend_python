@@ -26,5 +26,9 @@ class EnvVars:
             raise EnvVarExceptions('missing environment variable host')
 
     @property
-    def database_url(self):
+    def database_docker_url(self):
         return f'postgresql://{self.POSTGRES_USER}:{self.POSTGRES_PASSWORD}@db/{self.POSTGTRES_DB}'
+
+    @property
+    def database_session_url(self):
+        return f'postgresql+psycopg2://{self.POSTGRES_USER}:{self.POSTGRES_PASSWORD}@db/{self.POSTGTRES_DB}'

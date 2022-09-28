@@ -6,10 +6,9 @@ import logging
 logger = logging.getLogger(__name__)
 
 async def get_connect_db(app: FastAPI):
-    database = Database(EnvVars().database_url, min_size=2, max_size=5)
+    database = Database(EnvVars().database_docker_url, min_size=2, max_size=5)
     try:
         await database.connect()
-        import ipdb;ipdb.set_trace()
         app.state._db = database
     except Exception as e:
         logger.warning("--- DB CONNECTION ERROR ---")
