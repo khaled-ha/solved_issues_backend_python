@@ -22,4 +22,4 @@ class UserResponse(BaseModel):
 
 class RegistrationUserResponse(BaseModel):
     message: str
-    data : UserResponse
+    # data : UserResponse
