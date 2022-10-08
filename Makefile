@@ -1,4 +1,4 @@
-.PHONY: clean venv set_migrations
+.PHONY: clean venv set_migrations run
 
 SHELL := /bin/zsh
 ACTIVATE := source venv/bin/activate
@@ -19,3 +19,6 @@ set_migrations:
 	alembic revision --autogenerate
 	alembic upgrade head
 	docker-compose up -d --build server
+
+run:
+	docker-compose up -d

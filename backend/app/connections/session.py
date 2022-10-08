@@ -6,10 +6,11 @@ from logging import getLogger
 
 logger = getLogger(__name__)
 
-def get_db_session()-> Session:
+def get_db_session():
     engine = create_engine(EnvVars().database_session_url)
+    connection = engine.connect()
     try:
-        return Session(engine)
+        return sessionmaker(bind=connection)
     except SQLAlchemyError as e:
         logger.warn(e)
     except Exception as e:

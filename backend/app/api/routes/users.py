@@ -1,6 +1,6 @@
 from fastapi import status, Request, Depends
 from fastapi.exceptions import HTTPException
-from app.validators.users_validator import RegistrationUserResponse, UserCreate
+from app.validators.users_validator import RegistrationUserResponse, UserCreate, UserLogin
 from sqlalchemy.orm import Session 
 from sqlalchemy.exc import SQLAlchemyError
 from app.connections.session import get_db_session
@@ -24,15 +24,15 @@ async def register(
     user_credential : UserCreate,
     db: Session = Depends(get_db_session)
 ):
-    session = get_db_session() 
+    session = get_db_session()()
     email = session.query(User).filter(User.email==user_credential.email).first()
-    if email != None:
+    if email is not None:
         raise HTTPException(
             detail='Email already registered',
             status_code= status.HTTP_409_CONFLICT
             )
     hashed_password = get_hashed_password(user_credential.password).hexdigest()
-    import ipdb;ipdb.set_trace()
+    # import ipdb;ipdb.set_trace()
     try:
         user = User(
                     # first_name =user_credential.first_name,   
@@ -46,3 +46,23 @@ async def register(
     except SQLAlchemyError as e:
         logger.warn(e)
         session.rollback()
+
+
+@router.post(
+    '/login/',
+    status_code=status.HTTP_200_OK
+)
+async def login(request: Request, user_credantial: UserLogin, db: Session=Depends(get_db_session)):
+    password = get_hashed_password(user_credantial.password).hexdigest()
+    user = db.query(User).filter(User.email==user_credantial.email, User.password==password).first()
+    if not user:
+        raise HTTPException(
+            status_code= status.HTTP_401_UNAUTHORIZED,
+            detail= "Invalid Username or Password",
+            headers={"WWW-Authenticate":"Bearer"
+            })
+    if user.is_verified!=True:
+        raise HTTPException(status_code = status.HTTP_401_UNAUTHORIZED,detail= "Account Not Verified")
+    
+    access_token = create_access_token(data={'user_id':user.id})
+    return {'access_token':access_token,'token_type': 'bearer'}
