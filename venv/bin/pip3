@@ -1,4 +1,4 @@
-#!/home/khaled/Desktop/solved_issues/solved_issues_backend_python/venv/bin/python
+#!/home/khaled/Desktop/solved_issues_backend_python/venv/bin/python
 # -*- coding: utf-8 -*-
 import re
 import sys
