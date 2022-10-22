@@ -4,17 +4,21 @@ class BaseAPI(ABC):
     DEFAULT_HEADERS = {"content-type": "application/json", "accept": "application/json"}
     
     @abstractmethod
-    def post_user():
+    def post():
         pass
 
     @abstractmethod
-    def get_user():
+    def get():
         pass
 
     @abstractmethod
-    def patch_user():
+    def patch():
         pass
 
     @abstractmethod
-    def delete_user():
+    def delete():
+        pass
+
+    @abstractmethod
+    def get_token():
         pass
