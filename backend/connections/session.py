@@ -1,4 +1,4 @@
-from backend.conf.env_var_db_config import EnvVars
+from conf.env_var_db_config import EnvVars
 from sqlalchemy import create_engine
 from sqlalchemy.orm import Session, sessionmaker
 from sqlalchemy.exc import SQLAlchemyError

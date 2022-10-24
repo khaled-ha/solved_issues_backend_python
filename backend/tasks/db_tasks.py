@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from databases import Database
-from backend.conf.env_var_db_config import EnvVars
+from conf.env_var_db_config import EnvVars
 import logging
 
 logger = logging.getLogger(__name__)

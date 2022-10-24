@@ -7,6 +7,7 @@ class EnvVarExceptions(Exception):
 
 
 class EnvVars:
+
     def __init__(self) -> None:
         
         self.POSTGRES_USER = os.getenv('POSTGRES_USER', None)
