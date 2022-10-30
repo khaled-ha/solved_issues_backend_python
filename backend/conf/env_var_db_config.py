@@ -1,10 +1,10 @@
+from dataclasses import dataclass
 import os
 
 class EnvVarExceptions(Exception):
     def __init__(self, message) -> None:
         self.message =  message
         super().__init__(self.message)
-
 
 class EnvVars:
 
@@ -27,11 +27,11 @@ class EnvVars:
             raise EnvVarExceptions('missing environment variable host')
         
         self.AUTH_SERVER_HOST = os.getenv('AUTH_SERVER_HOST')
-        if not self.POSTGRES_PASSWORD:
+        if not self.AUTH_SERVER_HOST:
             raise EnvVarExceptions('missing environment variable AUTH Server is not yet set')
 
         self.AUTH_SERVER_PORT = os.getenv('AUTH_SERVER_PORT')
-        if not self.POSTGRES_PASSWORD:
+        if not self.AUTH_SERVER_PORT:
             raise EnvVarExceptions('missing environment variable AUTH Server Port')
         
     @property
