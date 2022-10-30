@@ -21,7 +21,8 @@ class UserApi(BaseAPI):
     def __init__(self):
         self.headers = self.DEFAULT_HEADERS
     
-    def post(self, url, data, headers, params):
+    @staticmethod
+    def post(url, data, headers=None, params=None):
         rest_request = RESTRequest(
             method=RESTMethod.POST,
             url=url,
@@ -32,7 +33,7 @@ class UserApi(BaseAPI):
         post(
             url=url,
             data=dumps(data),
-            headers=self.headers,
+            headers=headers,
         )
         
     

@@ -4,6 +4,7 @@ from validators.users_validator import RegistrationUserResponse, UserCreate, Use
 from sqlalchemy.orm import Session 
 from sqlalchemy.exc import SQLAlchemyError
 from connections.session import get_db_session
+from connections.auth_ping_pong import check_auth_server
 from auth_server.users import UserApi
 from utils import get_hashed_password
 from fastapi import APIRouter
@@ -33,18 +34,22 @@ router = APIRouter()
 async def register(
     request : Request,
     user_credential : UserCreate,
-    db: Session = Depends(get_db_session)
+    db: Session = Depends(get_db_session),
+    # auth_server : dict = Depends(check_auth_server)
 ):
     try:
-        UserApi.post(
-            url='http://localhost:8002', 
-            data=json.dumps(
+        print('started')
+        resp = UserApi.post(
+            url='http://auth:8002/auth/user/register', 
+            data = json.dumps(
                 {
                     'email': user_credential.email,
-                    'password': get_hashed_password(user_credential.password).hexdigest()
+                    'password': get_hashed_password(user_credential.password).hexdigest(),
+                    'is_verified': True
                 }
             )
         )
+        print(resp)
     except Exception as e:
         raise e
     # session = get_db_session()()
