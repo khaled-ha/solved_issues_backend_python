@@ -5,7 +5,7 @@ ENV PYTHONBUFFERED 1
 
 
 # install python dependencies
-RUN pip install --upgrade pip
+# RUN pip install --upgrade pip
 
 RUN python -m venv /opt/venv
 ENV PATH="/opt/venv/bin:$PATH"
@@ -27,6 +27,6 @@ RUN apt-get update \
 RUN pip install --upgrade pip
 
 COPY --from=builder /opt/venv /opt/venv
-ENV  PATH="/opt/venv/bin:$PATH" 
+ENV  PATH="/opt/venv/bin:$PATH"
 
 COPY ./ /backend

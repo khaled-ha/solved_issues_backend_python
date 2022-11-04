@@ -13,6 +13,9 @@ services:
     stdin_open: true
     ports:
       - 8000:8000
+    # networks:
+    #   - default
+    #   - solved_issues_network
     depends_on:
       - db
   db:
@@ -28,6 +31,24 @@ services:
       interval: 10s
       timeout: 5s
       retries: 3
-      
+  mongo:
+    image: mongo:latest
+    container_name: mongo
+    env_file:
+      - .env
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
+      MONGO_INITDB_DATABASE: ${MONGO_INITDB_DATABASE}
+    volumes:
+      - mongo:/data/db
+    ports:
+      - 6000:27017
+
 volumes:
-    postgres_data:
+  postgres_data:
+  mongo:
+# networks:
+#   solved_issues_network:
+#     external:
+#       name: solved_issues_network

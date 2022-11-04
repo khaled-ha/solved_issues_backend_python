@@ -79,4 +79,4 @@ serve:
 	docker-compose --project-name $(DOCKER_SERVER_IMAGE_TAG) up -d
 
 run:
-	docker-compose up -d
+	docker-compose up -d --remove-orphans
