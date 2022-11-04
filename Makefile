@@ -19,11 +19,11 @@ DOCKER_SERVER_IMAGE_TAG := server
 DOCKER_IMAGE_VERSION := latest
 DOCKER_EXPOSE_PORT := 8000
 DATABASE_URL := localhost
-POSTGRES_USER := 
-POSTGRES_PASSWORD := 
-POSTGRES_DB := 
+POSTGRES_USER :=
+POSTGRES_PASSWORD :=
+POSTGRES_DB :=
 
-.PHONY: clean venv set_migrations run
+.PHONY: clean venv set_migrations run docker_stop docker_build tests unit_tests serve
 
 lint:
 	scripts/lint.sh
@@ -42,7 +42,7 @@ venv:
 	$(SOURCE_VENV) && $(PIP) install -r requirements.txt
 #for req in $(REQS); do pip install -r $$req ; done
 
-docker_clean:
+docker_stop:
 	docker stop $(docker ps -aq)
 
 # set_migrations:
