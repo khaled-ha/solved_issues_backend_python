@@ -1,9 +1,7 @@
 from enum import Enum
 from requests import post, get, put, patch
 from json import dumps
-from dataclasses import dataclass
-from validators.users_validator import RegistrationUserResponse, UserCreate, UserLogin
-from typing import TYPE_CHECKING, Any, Mapping, Optional
+from validators.users_validator import UserCreate
 from abstract.baseapi import BaseAPI
 from utils import RESTMethod, RESTRequest
 
@@ -38,12 +36,6 @@ class UserApi(BaseAPI):
 
 def register_user(user: UserCreate) -> dict:
     jsonified_user = _jsonify_user(user)
-
-    # request = RESTRequest(
-    #         method=RESTMethod.POST,
-    #         url='http://localhost:8002',
-    #         data=jsonified_user,
-    #     )
 
 
 def get_user():

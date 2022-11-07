@@ -1,7 +1,6 @@
 from fastapi import FastAPI
 from starlette.middleware.cors import CORSMiddleware
 from api.routes import router as api_router
-from events import create_start_app_handler, stop_app_handler
 
 
 def get_application():
@@ -14,8 +13,6 @@ def get_application():
         allow_headers=['*'],
     )
     app.include_router(api_router, prefix='/api')
-    app.add_event_handler('startup', create_start_app_handler(app))
-    app.add_event_handler('shutdown', stop_app_handler(app))
     return app
 
 

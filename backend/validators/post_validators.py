@@ -1,8 +1,8 @@
 from datetime import datetime
-from typing import List
-from pydantic import BaseModel, EmailStr, constr
+from typing import List, Union
+from pydantic import BaseModel
 from bson.objectid import ObjectId
-from backend.validators.users_validator import UserBase
+from validators.users_validator import UserBase
 
 
 class FilteredUserResponse(UserBase):
@@ -14,8 +14,8 @@ class PostBaseSchema(BaseModel):
     content: str
     category: str
     image: str
-    created_at: datetime | None = None
-    updated_at: datetime | None = None
+    created_at: Union[datetime, None] = None
+    updated_at: Union[datetime, None] = None
 
     class Config:
         orm_mode = True
@@ -25,7 +25,7 @@ class PostBaseSchema(BaseModel):
 
 
 class CreatePostSchema(PostBaseSchema):
-    user: ObjectId | None = None
+    # user: ObjectId
     pass
 
 
@@ -37,11 +37,11 @@ class PostResponse(PostBaseSchema):
 
 
 class UpdatePostSchema(BaseModel):
-    title: str | None = None
-    content: str | None = None
-    category: str | None = None
-    image: str | None = None
-    user: str | None = None
+    title: Union[str, None] = None
+    content: Union[str, None] = None
+    category: Union[str, None] = None
+    image: Union[str, None] = None
+    user: Union[str, None] = None
 
     class Config:
         orm_mode = True
@@ -54,3 +54,15 @@ class ListPostResponse(BaseModel):
     status: str
     results: int
     posts: List[PostResponse]
+
+
+def ResponseModel(data, message):
+    return {
+        'data': [data],
+        'code': 200,
+        'message': message,
+    }
+
+
+def ErrorResponseModel(error, code, message):
+    return {'error': error, 'code': code, 'message': message}

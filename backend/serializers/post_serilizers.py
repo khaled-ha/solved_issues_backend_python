@@ -1,14 +1,14 @@
-from backend.serializers.user_seriliazer import embeddedUserResponse
+from serializers.user_seriliazer import embeddedUserResponse
 
 
 def postEntity(post) -> dict:
     return {
-        'id': str(post['_id']),
+        'id': post['_id'],
         'title': post['title'],
         'category': post['category'],
         'content': post['content'],
         'image': post['image'],
-        'user': str(post['user']),
+        # 'user': str(post['user']),
         'created_at': post['created_at'],
         'updated_at': post['updated_at'],
     }
@@ -16,12 +16,12 @@ def postEntity(post) -> dict:
 
 def populatedPostEntity(post) -> dict:
     return {
-        'id': str(post['_id']),
+        'id': str(post['id']),
         'title': post['title'],
         'category': post['category'],
         'content': post['content'],
         'image': post['image'],
-        'user': embeddedUserResponse(post['user']),
+        # 'user': embeddedUserResponse(post['user']),
         'created_at': post['created_at'],
         'updated_at': post['updated_at'],
     }

@@ -13,27 +13,8 @@ services:
     stdin_open: true
     ports:
       - 8000:8000
-    # networks:
-    #   - default
-    #   - solved_issues_network
     depends_on:
-      - db
-    networks:
-      - default
-      - solved_issues_network
-  db:
-    image: postgres:13-alpine
-    volumes:
-      - postgres_data:/var/lib/postgresql/data/
-    env_file:
-      - .env
-    ports:
-      - 5432:5432
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready", "-d", "solved_issues"]
-      interval: 10s
-      timeout: 5s
-      retries: 3
+      - mongo
   mongo:
     image: mongo:latest
     container_name: mongo
@@ -46,7 +27,7 @@ services:
     volumes:
       - mongo:/data/db
     ports:
-      - 6000:27017
+      - 27017:27017
 
 volumes:
   postgres_data:

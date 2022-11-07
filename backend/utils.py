@@ -1,9 +1,7 @@
 import hashlib
 from enum import Enum
-from requests import post, get, put, patch
-from json import dumps
 from dataclasses import dataclass
-from typing import TYPE_CHECKING, Any, Mapping, Optional
+from typing import Any, Mapping, Optional
 
 
 def get_hashed_password(password: str):

@@ -1,5 +1,6 @@
 from pydantic import BaseModel, EmailStr
 from datetime import datetime
+from typing import Union
 
 
 class UserBase(BaseModel):
@@ -8,9 +9,9 @@ class UserBase(BaseModel):
     is_verified: bool = False
     name: str
     photo: str
-    role: str | None = None
-    created_at: datetime | None = None
-    updated_at: datetime | None = None
+    role: Union[str, None] = None
+    created_at: Union[datetime, None] = None
+    updated_at: Union[datetime, None] = None
 
     class Config:
         orm_mode = True
