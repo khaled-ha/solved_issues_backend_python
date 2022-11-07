@@ -12,15 +12,14 @@ def _jsonify_user(user) -> dict:
     return {
         'email': user.email,
         'password': user.password,
-        'is_verified': user.is_verified
+        'is_verified': user.is_verified,
     }
 
 
 class UserApi(BaseAPI):
-
     def __init__(self):
         self.headers = self.DEFAULT_HEADERS
-    
+
     @staticmethod
     def post(url, data, headers=None, params=None):
         rest_request = RESTRequest(
@@ -35,8 +34,7 @@ class UserApi(BaseAPI):
             data=dumps(data),
             headers=headers,
         )
-        
-    
+
 
 def register_user(user: UserCreate) -> dict:
     jsonified_user = _jsonify_user(user)
@@ -46,7 +44,6 @@ def register_user(user: UserCreate) -> dict:
     #         url='http://localhost:8002',
     #         data=jsonified_user,
     #     )
-    
 
 
 def get_user():

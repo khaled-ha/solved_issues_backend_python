@@ -1,8 +1,9 @@
 from abc import ABC, abstractmethod
 
+
 class BaseAPI(ABC):
-    DEFAULT_HEADERS = {"content-type": "application/json", "accept": "application/json"}
-    
+    DEFAULT_HEADERS = {'content-type': 'application/json', 'accept': 'application/json'}
+
     @abstractmethod
     def post():
         pass

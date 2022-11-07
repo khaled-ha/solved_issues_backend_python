@@ -4,7 +4,8 @@ from requests.exceptions import ConnectionError
 
 healthiness = APIRouter()
 
-@healthiness.get("/ping")
+
+@healthiness.get('/ping')
 def pong():
     try:
         res = get('http://auth:8002/auth/check/ping')

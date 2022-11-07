@@ -9,11 +9,12 @@ from typing import TYPE_CHECKING, Any, Mapping, Optional
 def get_hashed_password(password: str):
     return hashlib.sha256(password.encode())
 
+
 class RESTMethod(Enum):
-    GET = "GET"
-    POST = "POST"
-    PUT = "PUT"
-    DELETE = "DELETE"
+    GET = 'GET'
+    POST = 'POST'
+    PUT = 'PUT'
+    DELETE = 'DELETE'
 
     def __str__(self):
         obj_str = repr(self)

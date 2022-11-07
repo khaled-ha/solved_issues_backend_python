@@ -1,5 +1,6 @@
 from requests import get
 
+
 def check_auth_server():
     try:
         res = get('http://auth:8002/auth/check/ping')

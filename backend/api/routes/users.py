@@ -1,7 +1,13 @@
 from fastapi import status, Request, Depends
 from fastapi.exceptions import HTTPException
-from validators.users_validator import RegistrationUserResponse, UserCreate, UserLogin, NotFoundResponse
-from sqlalchemy.orm import Session 
+from validators.users_validator import (
+    RegistrationUserResponse,
+    UserCreate,
+    UserLogin,
+    NotFoundResponse,
+)
+from sqlalchemy.orm import Session
+from sqlalchemy.orm import Session
 from sqlalchemy.exc import SQLAlchemyError
 from connections.session import get_db_session
 from connections.auth_ping_pong import check_auth_server
@@ -16,38 +22,41 @@ logger = getLogger(__name__)
 
 router = APIRouter()
 
+
 @router.post(
     '/register',
     status_code=status.HTTP_201_CREATED,
     response_model=RegistrationUserResponse,
     responses={
-    status.HTTP_201_CREATED: {
-        "model": RegistrationUserResponse,
-        "description": "Created User ",
-    },
-    status.HTTP_404_NOT_FOUND: {
-        "model": NotFoundResponse,
-        "description": "Server not found",
-    },
+        status.HTTP_201_CREATED: {
+            'model': RegistrationUserResponse,
+            'description': 'Created User ',
+        },
+        status.HTTP_404_NOT_FOUND: {
+            'model': NotFoundResponse,
+            'description': 'Server not found',
+        },
     },
 )
 async def register(
-    request : Request,
-    user_credential : UserCreate,
+    request: Request,
+    user_credential: UserCreate,
     db: Session = Depends(get_db_session),
     # auth_server : dict = Depends(check_auth_server)
 ):
     try:
         print('started')
         resp = UserApi.post(
-            url='http://auth:8002/auth/user/register', 
-            data = json.dumps(
+            url='http://auth:8002/auth/user/register',
+            data=json.dumps(
                 {
                     'email': user_credential.email,
-                    'password': get_hashed_password(user_credential.password).hexdigest(),
-                    'is_verified': True
+                    'password': get_hashed_password(
+                        user_credential.password
+                    ).hexdigest(),
+                    'is_verified': True,
                 }
-            )
+            ),
         )
         print(resp)
     except Exception as e:
@@ -63,9 +72,9 @@ async def register(
     # # import ipdb;ipdb.set_trace()
     # try:
     #     user = User(
-    #                 # first_name =user_credential.first_name,   
-    #                 # last_name= user_credential.last_name,   
-    #                 email = user_credential.email,   
+    #                 # first_name =user_credential.first_name,
+    #                 # last_name= user_credential.last_name,
+    #                 email = user_credential.email,
     #                 password = hashed_password
     #             )
     #     session.add(user)
@@ -77,11 +86,10 @@ async def register(
     pass
 
 
-@router.post(
-    '/login/',
-    status_code=status.HTTP_200_OK
-)
-async def login(request: Request, user_credential: UserLogin, db: Session=Depends(get_db_session)):
+@router.post('/login/', status_code=status.HTTP_200_OK)
+async def login(
+    request: Request, user_credential: UserLogin, db: Session = Depends(get_db_session)
+):
     password = get_hashed_password(user_credential.password).hexdigest()
     # user = db.query(User).filter(User.email==user_credential.email, User.password==password).first()
     # if not user:
@@ -92,6 +100,6 @@ async def login(request: Request, user_credential: UserLogin, db: Session=Depend
     #         })
     # if user.is_verified!=True:
     #     raise HTTPException(status_code = status.HTTP_401_UNAUTHORIZED,detail= "Account Not Verified")
-    
+
     # access_token = create_access_token(data={'user_id':user.id})
     # return {'access_token':access_token,'token_type': 'bearer'}
