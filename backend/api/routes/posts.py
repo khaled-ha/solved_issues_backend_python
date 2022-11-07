@@ -2,7 +2,13 @@ from datetime import datetime
 from fastapi import Depends, HTTPException, status, APIRouter, Response, Body
 from pymongo.collection import ReturnDocument
 from config.mongo_config import Post
-from methodes.posts import add_post, retrieve_post, retrieve_posts, update_post
+from methodes.posts import (
+    add_post,
+    delete_post,
+    retrieve_post,
+    retrieve_posts,
+    update_post,
+)
 from validators.post_validators import (
     CreatePostSchema,
     ErrorResponseModel,
@@ -51,4 +57,16 @@ async def update_post_data(id: str, req: UpdatePostSchema = Body(...)):
         'An error occurred',
         404,
         'There was an error updating the post data.',
+    )
+
+
+@post_router.delete('/{id}', response_description='post data deleted from the database')
+async def delete_post_data(id: str):
+    deleted_post = delete_post(id)
+    if deleted_post:
+        return ResponseModel(
+            'post with ID: {} removed'.format(id), 'post deleted successfully'
+        )
+    return ErrorResponseModel(
+        'An error occurred', 404, "post with id {} doesn't exist".format(id)
     )
