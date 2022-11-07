@@ -21,7 +21,7 @@ class Settings(BaseSettings):
 
 settings = Settings()
 
-client = mongo_client.MongoClient(settings.DATABASE_URL, serverSelectionTimeoutMS=5000)
+client = mongo_client.MongoClient(settings.MONGO_URL, serverSelectionTimeoutMS=5000)
 
 try:
     conn = client.server_info()

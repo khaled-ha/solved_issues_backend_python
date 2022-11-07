@@ -11,7 +11,7 @@ REQS := (requirements.txt|requirements_test.txt)
 SOURCE_VENV := source venv/bin/activate
 
 # Python definitions. Support Python 3.9 and 3.10 on GH workflow
-PYTHON_INTERPRETER := python3.9
+PYTHON_INTERPRETER := python3.10
 PIP := $(PYTHON_INTERPRETER) -m pip
 VENV_DIR = venv
 

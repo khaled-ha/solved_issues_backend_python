@@ -15,7 +15,7 @@ pytest-asyncio==0.16.0
 pytest-cov==3.0.0
 pytest-mock==3.7.0
 types-protobuf==3.19.18
-jake==1.1.0
+jake
 numpy==1.21.3
 mypy==0.910
 psycopg2-binary==2.9.2

@@ -44,7 +44,7 @@ command:
 
 PS C:\> Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
 
-For more information on Execution Policies: 
+For more information on Execution Policies:
 https://go.microsoft.com/fwlink/?LinkID=135170
 
 #>
@@ -94,6 +94,11 @@ function global:deactivate ([switch]$NonDestructive) {
     # Just remove the VIRTUAL_ENV altogether:
     if (Test-Path -Path Env:VIRTUAL_ENV) {
         Remove-Item -Path env:VIRTUAL_ENV
+    }
+
+    # Just remove VIRTUAL_ENV_PROMPT altogether.
+    if (Test-Path -Path Env:VIRTUAL_ENV_PROMPT) {
+        Remove-Item -Path env:VIRTUAL_ENV_PROMPT
     }
 
     # Just remove the _PYTHON_VENV_PROMPT_PREFIX altogether:
@@ -228,6 +233,7 @@ if (-not $Env:VIRTUAL_ENV_DISABLE_PROMPT) {
         Write-Host -NoNewline -ForegroundColor Green "($_PYTHON_VENV_PROMPT_PREFIX) "
         _OLD_VIRTUAL_PROMPT
     }
+    $env:VIRTUAL_ENV_PROMPT = $Prompt
 }
 
 # Clear PYTHONHOME

@@ -18,4 +18,4 @@ if [ $exit_code -ne 0 ]
 then
 exit $exit_code
 fi
-pylint --rcfile=pylintrc --fail-under=9.5 data_service tests
+pylint --rcfile=pylintrc --fail-under=9.5 backend tests

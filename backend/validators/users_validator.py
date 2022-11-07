@@ -6,6 +6,14 @@ class UserBase(BaseModel):
     email: EmailStr
     password: str
     is_verified: bool = False
+    name: str
+    photo: str
+    role: str | None = None
+    created_at: datetime | None = None
+    updated_at: datetime | None = None
+
+    class Config:
+        orm_mode = True
 
 
 class UserCreate(UserBase):
