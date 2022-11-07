@@ -8,7 +8,7 @@ from dotenv import load_dotenv
 
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 from backend import Base
-from backend.connections.env_var_db_config import EnvVars
+from backend.conf.env_var_db_config import EnvVars
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.

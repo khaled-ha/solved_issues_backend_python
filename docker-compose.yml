@@ -18,6 +18,9 @@ services:
     #   - solved_issues_network
     depends_on:
       - db
+    networks:
+      - default
+      - solved_issues_network
   db:
     image: postgres:13-alpine
     volumes:

@@ -38,3 +38,8 @@ class UserResponse(BaseModel):
 class RegistrationUserResponse(BaseModel):
     message: str
     # data : UserResponse
+
+
+class NotFoundResponse(BaseModel):
+    message: str
+    # data : UserResponse
