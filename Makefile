@@ -23,7 +23,7 @@ POSTGRES_USER :=
 POSTGRES_PASSWORD :=
 POSTGRES_DB :=
 
-.PHONY: clean venv set_migrations run docker_stop docker_build tests unit_tests serve
+.PHONY: clean venv set_migrations run docker_stop docker_build tests unit_tests serve help
 
 lint:
 	scripts/lint.sh
@@ -44,13 +44,6 @@ venv:
 
 docker_stop:
 	docker stop $(docker ps -aq)
-
-# set_migrations:
-# 	docker-compose down -v
-# 	docker-compose up -d db
-# 	alembic revision --autogenerate
-# 	alembic upgrade head
-# 	docker-compose up -d --build server
 
 docker_build:
 	docker build -t $(DOCKER_SERVER_IMAGE_TAG):$(DOCKER_IMAGE_VERSION) -f Dockerfile .
@@ -79,4 +72,4 @@ serve:
 	docker-compose --project-name $(DOCKER_SERVER_IMAGE_TAG) up -d
 
 run:
-	docker-compose up -d --remove-orphans
+	docker-compose up -d --build
