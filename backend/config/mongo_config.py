@@ -20,7 +20,6 @@ class Settings(BaseSettings):
 
 
 settings = Settings()
-# client = MongoClient('mongodb://mongo:27017/', serverSelectionTimeoutMS=5000)
 client = MongoClient(
     'mongodb://solved_issue_user:solved_issues_password@mongo:27017/solved_issues?authSource=admin',
     serverSelectionTimeoutMS=5000,

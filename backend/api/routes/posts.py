@@ -5,6 +5,7 @@ from config.mongo_config import Post
 from methodes.posts import (
     add_post,
     delete_post,
+    rate_post_by_id,
     retrieve_post,
     retrieve_posts,
     update_post,
@@ -45,7 +46,7 @@ def get_post_data(id):
 
 
 @post_router.put('/{id}')
-async def update_post_data(id: str, req: UpdatePostSchema = Body(...)):
+def update_post_data(id: str, req: UpdatePostSchema = Body(...)):
     req = {k: v for k, v in req.dict().items() if v is not None}
     updated_post = update_post(id, req)
     if updated_post:
@@ -61,11 +62,22 @@ async def update_post_data(id: str, req: UpdatePostSchema = Body(...)):
 
 
 @post_router.delete('/{id}', response_description='post data deleted from the database')
-async def delete_post_data(id: str):
+def delete_post_data(id: str):
     deleted_post = delete_post(id)
     if deleted_post:
         return ResponseModel(
             'post with ID: {} removed'.format(id), 'post deleted successfully'
+        )
+    return ErrorResponseModel(
+        'An error occurred', 404, "post with id {} doesn't exist".format(id)
+    )
+
+
+@post_router.post('/{id}/rate', response_description='rate post')
+async def rate_post(id: str):
+    if rate_post_by_id(id):
+        return ResponseModel(
+            'post with ID: {} rated'.format(id), 'post rated successfully'
         )
     return ErrorResponseModel(
         'An error occurred', 404, "post with id {} doesn't exist".format(id)

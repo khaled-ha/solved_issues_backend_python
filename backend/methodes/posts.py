@@ -5,16 +5,11 @@ from bson.objectid import ObjectId
 
 
 def retrieve_posts():
-    posts = []
-    for post in Post.find():
-        posts.append(postEntity(post))
-    print(posts)
-    return postListEntity(posts)
+    return postListEntity([postEntity(post) for post in Post.find()])
 
 
 # Add a new post into to the database
 def add_post(post_data: dict) -> dict:
-    print(post_data)
     post = Post.insert_one(post_data)
     new_post = Post.find_one({'_id': post.inserted_id})
     return postEntity(new_post)
@@ -46,3 +41,16 @@ def delete_post(id: str):
     if post:
         Post.delete_one({'_id': ObjectId(id)})
         return True
+
+
+def rate_post_by_id(id: str):
+    post = Post.find_one({'_id': ObjectId(id)})
+    if post:
+        new_rate = post['post_rate'] + 1 if 'post_rate' in post.keys() else 1
+        updated_post = Post.update_one(
+            {'_id': ObjectId(id)},
+            {'$set': {'post_rate': new_rate}},
+        )
+        if updated_post:
+            return True
+        return False
