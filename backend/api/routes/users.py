@@ -39,7 +39,7 @@ async def register(
 ):
     try:
         print('started')
-        resp = UserApi.post(
+        resp = UserApi.register_user(
             url='http://auth:8002/auth/user/register',
             data=json.dumps(
                 {

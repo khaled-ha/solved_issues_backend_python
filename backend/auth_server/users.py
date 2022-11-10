@@ -19,8 +19,8 @@ class UserApi(BaseAPI):
         self.headers = self.DEFAULT_HEADERS
 
     @staticmethod
-    def post(url, data, headers=None, params=None):
-        rest_request = RESTRequest(
+    def register_user(url, data, headers=None, params=None):
+        RESTRequest(
             method=RESTMethod.POST,
             url=url,
             params=params,
@@ -32,11 +32,3 @@ class UserApi(BaseAPI):
             data=dumps(data),
             headers=headers,
         )
-
-
-def register_user(user: UserCreate) -> dict:
-    jsonified_user = _jsonify_user(user)
-
-
-def get_user():
-    pass
