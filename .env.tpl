@@ -12,6 +12,7 @@ AUTH_SERVER_HOST=localhost
 MONGO_INITDB_ROOT_USERNAME=solved_issue_user
 MONGO_INITDB_ROOT_PASSWORD=solved_issues_password
 MONGO_INITDB_DATABASE=solved_issues
+MONGO_URL=mongodb://solved_issue_user:solved_issues_password@localhost:6000/solved_issues?authSource=solved_issue_user
 
 DATABASE_URL=mongodb://solved_issue_user:solved_issues_password@localhost:6000/solved_issues?authSource=solved_issue_user
 
