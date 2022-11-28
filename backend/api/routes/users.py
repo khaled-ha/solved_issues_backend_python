@@ -1,4 +1,6 @@
-from fastapi import status, Request, Depends
+import json
+from logging import getLogger
+from fastapi import status, Request, APIRouter
 from validators.users_validator import (
     RegistrationUserResponse,
     UserCreate,
@@ -8,10 +10,6 @@ from validators.users_validator import (
 from connections.auth_ping_pong import check_auth_server
 from auth_server.users import UserApi
 from utils import get_hashed_password
-from fastapi import APIRouter
-import json
-
-from logging import getLogger
 
 logger = getLogger(__name__)
 
@@ -34,7 +32,6 @@ router = APIRouter()
     },
 )
 async def register(
-    request: Request,
     user_credential: UserCreate,
 ):
     try:

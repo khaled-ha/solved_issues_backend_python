@@ -12,7 +12,7 @@ class FilteredUserResponse(UserBase):
 class PostBaseSchema(BaseModel):
     title: str
     content: str
-    category: str
+    tags: List[str] = ['']
     image: str
     created_at: Union[datetime, None] = None
     updated_at: Union[datetime, None] = None

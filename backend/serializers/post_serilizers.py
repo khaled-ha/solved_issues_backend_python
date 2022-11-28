@@ -8,7 +8,7 @@ def postEntity(post) -> dict:
         'category': post['category'],
         'content': post['content'],
         'image': post['image'],
-        # 'tags': post['tags'],
+        'tags': post['tags'],
         # 'user': str(post['user']),
         'created_at': post['created_at'],
         'updated_at': post['updated_at'],

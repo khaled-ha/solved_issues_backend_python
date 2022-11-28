@@ -1,7 +1,4 @@
-from datetime import datetime
-from fastapi import Depends, HTTPException, status, APIRouter, Response, Body
-from pymongo.collection import ReturnDocument
-from config.mongo_config import Post
+from fastapi import APIRouter, Body
 from methodes.posts import (
     add_post,
     delete_post,
@@ -17,7 +14,6 @@ from validators.post_validators import (
     UpdatePostSchema,
 )
 from fastapi.encoders import jsonable_encoder
-from bson.objectid import ObjectId
 
 post_router = APIRouter()
 
